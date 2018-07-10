@@ -59,17 +59,22 @@ export default {
       default: '#f0f'
     },
     linkColor: {
-      type: String
+      type: String,
+      default: ''
     },
     text: {
       type: [String, Array],
       default: ''
     },
     avatar: {
-      type: String
+      type: String,
+      default: ''
     },
     avatarLink: {
-      type: Object
+      type: Object,
+      default () {
+        return {}
+      }
     },
     bdColor: {
       type: String,
@@ -79,7 +84,9 @@ export default {
     //  url 为将要跳转的链接 title 为跳转页面的title type为url类型取值为mip 或空
     btns: {
       type: Array,
-      default: []
+      default () {
+        return []
+      }
     }
 
   }

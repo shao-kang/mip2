@@ -44,10 +44,14 @@ export default {
       default: '#fff'
     },
     avatar: {
-      type: String
+      type: String,
+      default: ''
     },
     avatarLink: {
-      type: Object
+      type: Object,
+      default () {
+        return {}
+      }
     },
     img: {
       type: String,

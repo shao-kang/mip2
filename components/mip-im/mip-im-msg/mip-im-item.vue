@@ -141,10 +141,12 @@ export default {
     },
     avatarLink: {
       type: Object,
-      defalut: {
-        url: '',
-        type: '',
-        title: ''
+      default () {
+        return {
+          url: '',
+          type: '',
+          title: ''
+        }
       }
     }
   }

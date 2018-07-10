@@ -39,7 +39,9 @@ export default {
   props: {
     imList: {
       type: Array,
-      default: []
+      default () {
+        return []
+      }
     },
     align: {
       type: String,
@@ -47,33 +49,37 @@ export default {
     },
     config: {
       type: Object,
-      default: {
-        left: {
-          bgColor: '#ff0',
-          bdColor: '#f0f',
-          textColor: '',
-          linkColor: '#0ff'
-        },
-        right: {
-          bgColor: '#fff',
-          bdColor: '#f0f',
-          textColor: '',
-          linkColor: '#00f'
-        },
-        middle: {
-          bgColor: 'transparent',
-          textColor: '#555'
-        },
-        systemTime: {
-          bgColor: '#d9d9d9',
-          textColor: '#fff',
-          timeInterval: 300
+      default () {
+        return {
+          left: {
+            bgColor: '#ff0',
+            bdColor: '#f0f',
+            textColor: '',
+            linkColor: '#0ff'
+          },
+          right: {
+            bgColor: '#fff',
+            bdColor: '#f0f',
+            textColor: '',
+            linkColor: '#00f'
+          },
+          middle: {
+            bgColor: 'transparent',
+            textColor: '#555'
+          },
+          systemTime: {
+            bgColor: '#d9d9d9',
+            textColor: '#fff',
+            timeInterval: 300
+          }
         }
       }
     },
     customMsgs: {
       type: Object,
-      default: {}
+      default () {
+        return {}
+      }
     }
   },
   created: function () {

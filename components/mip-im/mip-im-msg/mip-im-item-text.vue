@@ -54,10 +54,14 @@ export default {
       default: '#000'
     },
     avatar: {
-      type: String
+      type: String,
+      default: ''
     },
     avatarLink: {
-      type: Object
+      type: Object,
+      default () {
+        return {}
+      }
     },
     linkColor: {
       type: String,

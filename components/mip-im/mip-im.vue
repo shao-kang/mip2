@@ -2,27 +2,31 @@
   <div
     :style="{'background': background}"
     class="container"
-    >
-
-    <mip-im-list :im-list="list"></mip-im-list>
+  >
+    <mip-im-list :im-list="list"/>
+    <mip-im-input
+      @send="send"
+      @input-extra-event="send"
+    />
   </div>
 
 </template>
 
 <style scoped>
 .container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  padding-bottom: .2rem;
 }
 </style>
 
 <script>
 import MipImList from './mip-im-msg/mip-im-list.vue'
+import MipImInput from './mip-im-input/mip-im-input.vue'
 import mock from './mock.js'
 export default {
+  components: {
+    'mip-im-list': MipImList,
+    'mip-im-input': MipImInput
+  },
   props: {
     list: {
       type: Array,
@@ -30,19 +34,36 @@ export default {
     },
     customComponents: {
       type: Object,
-      default: function () {return;}
+      default: function () {
+        return {}
+      }
     }
   },
- created: function () {
+  created: function () {
     this.$options.components = Object.assign({}, this.$props.customComponents, this.$options.components)
     // this.$options.components = this.$props.customComponents
   },
-  components: {
-    'mip-im-list': MipImList
-  },
   mounted () {
     console.log(mock)
-    console.log('This is my first custom component !')
+    // Create WebSocket connection.
+    // const socket = new WebSocket('ws://localhost:8080');
+
+    // // Connection opened
+    // socket.addEventListener('open', function (event) {
+    //   console.log('hello');
+    //   socket.send({a: 1});
+    // });
+
+    // // Listen for messages
+    // socket.addEventListener('message', function (event) {
+    //   console.log('Message from server', event.data);
+    // });
+    // console.log('This is my first custom component !')
+  },
+  methods: {
+    send (info) {
+      console.log(info)
+    }
   }
 }
 </script>

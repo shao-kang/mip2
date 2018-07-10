@@ -50,11 +50,11 @@ export default {
     },
     avatar: {
       type: String,
-      defaule: ''
+      default: null
     },
     avatarLink: {
       type: Object,
-      defaule: function() {return {}}
+      default () { return {} }
     },
     totalTime: {
       type: Number,
@@ -62,7 +62,7 @@ export default {
     },
     audio: {
       type: Object,
-      defaule: function () {
+      default: function () {
         return {source: []}
       }
     }

@@ -1,9 +1,8 @@
 <template>
   <div
-    :style="
-      { 'border-top': '1px solid ' + bdColor,
-        'border-left': '1px solid ' + bdColor,
-        'background-color': bgColor}"
+    :style="{ 'border-top': '1px solid ' + bdColor,
+              'border-left': '1px solid ' + bdColor,
+              'background-color': bgColor}"
     :class="align==='left'?'mip-im-triangle-left':'mip-im-triangle-right'"/>
 </template>
 
