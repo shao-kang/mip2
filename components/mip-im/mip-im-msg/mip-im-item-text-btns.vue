@@ -8,7 +8,7 @@
     :avatar-link="avatarLink"
     :triangle="false"
     :bd-color="bdColor"
-    type="default">
+    type="inflexible">
     <div
       slot="bottom"
       :style="{'border-top': '1px solid ' + bdColor}"
@@ -38,8 +38,12 @@
   text-align: center;
   padding-top: .1rem;
   padding-bottom: .1rem;
+  font-size: .16rem;
   line-height: 100%;
   flex: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
 
@@ -80,8 +84,8 @@ export default {
       type: String,
       default: '#000'
     },
-    // btns 中一个对象的格式为{url：'aaa', title: 'nihao', type: 'mip'}
-    //  url 为将要跳转的链接 title 为跳转页面的title type为url类型取值为mip 或空
+    // btns 中一个对象的格式为{url：'aaa', title: 'nihao', type: 'mip', text: 'btn1'}
+    //  url 为将要跳转的链接 title 为跳转页面的title type为url类型取值为mip 或空, text: 为按钮中文字
     btns: {
       type: Array,
       default () {

@@ -40,9 +40,9 @@ export default {
       type: Object,
       default: function () {
         return {
-          type: 'mip',
-          url: 'http://www.baidu.com',
-          tilte: 'baidu'
+          type: '',
+          url: null,
+          tilte: ''
         }
       }
     },

@@ -27,12 +27,13 @@ export default {
 <style scoped>
   .mip-im-item-system {
     text-align: center;
-    margin-bottom: .2rem;
+    margin-bottom: .15rem;
   }
   .mip-im-item-system-text {
     border-radius: .03rem;
     padding: .05rem .1rem;
-    font-size: .13rem;
+    font-size: .12rem;
+    line-height: 100%;
     display: inline-block;
   }
 </style>

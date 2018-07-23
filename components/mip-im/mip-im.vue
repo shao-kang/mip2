@@ -3,9 +3,15 @@
     :style="{'background': background}"
     class="container"
   >
-    <mip-im-list :im-list="list"/>
+    <mip-im-list
+      ref="imList"
+      :im-list="imList"
+      :config="imConfig"
+      class="mip-im-list"/>
     <mip-im-input
-      @send="send"
+      :extra-list="inputExtraList"
+      v-bind="inputConfig"
+      @send="sendText"
       @input-extra-event="send"
     />
   </div>
@@ -13,56 +19,91 @@
 </template>
 
 <style scoped>
-.container {
-  padding-bottom: .2rem;
+.mip-im-list {
+  padding-bottom: 1rem;
 }
 </style>
 
 <script>
 import MipImList from './mip-im-msg/mip-im-list.vue'
 import MipImInput from './mip-im-input/mip-im-input.vue'
-import mock from './mock.js'
 export default {
   components: {
     'mip-im-list': MipImList,
     'mip-im-input': MipImInput
   },
   props: {
-    list: {
+    imList: {
       type: Array,
-      default: mock.list
+      default () {
+        return []
+      }
+    },
+    imConfig: {
+      type: Object,
+      default () {
+        return {
+          left: {
+            bgColor: '#f00',
+            bdColor: '#f0f',
+            textColor: '#f0f',
+            linkColor: '#0ff'
+          },
+          right: {
+            bgColor: '#fff',
+            bdColor: '#f0f',
+            textColor: '',
+            linkColor: '#0ff'
+          },
+          middle: {
+            bgColor: 'transparent',
+            textColor: '#555'
+          },
+          systemTime: {
+            bgColor: '#d9d9d9',
+            textColor: '#fff',
+            timeInterval: 60
+          }
+        }
+      }
     },
     customComponents: {
       type: Object,
       default: function () {
         return {}
       }
+    },
+    inputConfig: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  data () {
+    return {}
+  },
+  watch: {
+    imList (value, old) {
+      this.$nextTick(() => {
+        this.$refs.imList.moveToLast()
+      })
     }
   },
   created: function () {
     this.$options.components = Object.assign({}, this.$props.customComponents, this.$options.components)
-    // this.$options.components = this.$props.customComponents
   },
   mounted () {
-    console.log(mock)
-    // Create WebSocket connection.
-    // const socket = new WebSocket('ws://localhost:8080');
-
-    // // Connection opened
-    // socket.addEventListener('open', function (event) {
-    //   console.log('hello');
-    //   socket.send({a: 1});
-    // });
-
-    // // Listen for messages
-    // socket.addEventListener('message', function (event) {
-    //   console.log('Message from server', event.data);
-    // });
-    // console.log('This is my first custom component !')
+    this.$refs.imList.moveToLast()
   },
   methods: {
-    send (info) {
+    sendText (info) {
       console.log(info)
+      this.$emit('sendText', info)
+    },
+    inputExtraEvent (info) {
+      console.log(info)
+      this.$emit('inputExtra', info)
     }
   }
 }

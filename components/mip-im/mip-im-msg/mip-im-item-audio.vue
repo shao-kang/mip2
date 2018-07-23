@@ -5,7 +5,7 @@
     :avatar="avatar"
     :avatar-link="avatarLink"
     :bd-color="bdColor"
-    type="flex">
+    type="flexible">
     <div class="mip-im-item-audio">
       <mip-im-audio
         :duration="totalTime *1000"
@@ -19,7 +19,7 @@
         ref="audio"
         @ended="()=>{state='pause'}">
         <source
-          v-for="source in audio.source"
+          v-for="source in sourceList"
           :key="source.src"
           v-bind="source" >
       </audio>
@@ -60,16 +60,24 @@ export default {
       type: Number,
       default: 0
     },
-    audio: {
-      type: Object,
+    audioSource: {
+      type: Array,
       default: function () {
-        return {source: []}
+        return []
       }
     }
   },
   data: function () {
     return {
       state: 'pause'
+    }
+  },
+  computed: {
+    sourceList: function () {
+      if (typeof (this.audioSource) === 'object') {
+        return this.audioSource
+      }
+      return [{src: this.audioSource}]
     }
   },
   watch: {

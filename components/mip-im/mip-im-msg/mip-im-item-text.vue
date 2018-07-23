@@ -22,7 +22,9 @@
 
 <style scoped>
 .im-content-text {
-  padding: 12px;
+  padding: .06rem .12rem;
+  font-size: .16rem;
+  line-height: .26rem;
   display: block;
   white-space: pre-wrap;
   word-break: break-all;
@@ -69,7 +71,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'flex'
+      default: 'flexible'
     },
     text: {
       type: [String, Array],

@@ -23,11 +23,13 @@
             :class="inputState === 'blur' ? 'mip-im-input-input-blur': 'mip-im-input-input-focus'"
             v-model="inputContent"
             :placeholder="placeholder"
+            :disabled="disabled"
             @focus="onfocus"
             @blur="onblur"
           />
           <div
             v-if="inputState === 'blur'"
+            v-show="inputContent === ''"
             class="mip-im-input-extra-button"
             @click="extraClick">
 
@@ -48,21 +50,28 @@
                 d="M490.666667 469.333333h-141.717334c-15.978667 0-28.949333 14.314667-28.949333 32 0 17.664 12.970667 32 28.949333 32H490.666667v141.717334c0 15.978667 14.314667 28.949333 32 28.949333s32-12.970667 32-28.949333V533.333333h141.717333c15.978667 0 28.949333-14.336 28.949333-32 0-17.685333-12.970667-32-28.949333-32H554.666667v-141.717333c0-15.978667-14.314667-28.949333-32-28.949333s-32 12.970667-32 28.949333V469.333333z"
               />
             </svg>
-          </div>
 
+          </div>
+          <div
+            v-if="inputState === 'blur'"
+            v-show="inputContent !== ''"
+            class="mip-im-input-extra-button mip-im-input-extra-button-span"
+            @click="send">
+            发送
+          </div>
         </div>
         <div
           v-show="extraState"
           class="mip-im-input-extra">
           <component
             v-for="(item, index) in extraList"
-            :key="item.viewType"
-            :is="item.type"
+            :key="item.type"
+            :is="item.viewType"
             :index="index"
+            :bind="item.content"
             class="mip-im-input-extra-item"
             @extra-event="extraEvent"
           />
-          <div :class="'mip-im-input-extra-space-' + (4 - extraList.length % 4)" />
         </div>
       </div>
     </mip-fixed>
@@ -82,6 +91,8 @@
   min-height: 0.48rem;
   background-color: #f8f8f8;
   width: 100%;
+  -webkit-appearance: none;
+
 }
 .mip-im-input-main {
   padding-right: 0.17rem;
@@ -103,9 +114,11 @@
   vertical-align: middle;
   word-wrap: normal;
   word-break: normal;
-  outline: 0;
+  outline: none;
+  resize: none;
   background-color: #fff;
   -webkit-appearance: none;
+  overflow: hidden;
 }
 .mip-im-input-input-focus {
   margin-top: 0.15rem;
@@ -116,7 +129,9 @@
   width: 100%;
   height: 0.94rem;
   resize: none;
+  outline: none;
   word-wrap: break-word;
+  -webkit-appearance: none;
 }
 .mip-im-input-input-focus-btn {
   margin-top: 0.1rem;
@@ -136,10 +151,15 @@
   text-align: right;
 }
 .mip-im-input-extra-button {
-  width: 0.27rem;
+  width: 0.32rem;
   height: 0.27rem;
   margin: 0.1rem 0 0.1rem 0.07rem;
 }
+.mip-im-input-extra-button-span {
+  font-size: .16rem;
+  line-height: .27rem;
+}
+
 .mip-im-input-extra-button-svg {
   width: 100%;
   height: 100%
@@ -150,25 +170,16 @@
   color: #555;
   padding: 0 0.17rem;
   border-top: 1px solid #ebebeb;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
 }
 .mip-im-input-extra-item {
   padding: 0.15rem 0;
-  width: 0;
-  flex: 1 1 auto;
+  width: 25%;
+  flex: none;
 }
-.mip-im-input-extra-space-1 {
-  flex: 1 1 auto;
-  width: 0;
-}
-.mip-im-input-extra-space-2 {
-  flex: 2 2 auto;
-  width: 0;
-}
-.mip-im-input-extra-space-3 {
-  flex: 1 1 auto;
-  width: 0;
-}
+
 .mip-im-input-real-textarea {
   margin-top: 0.15rem;
   padding: 0.12rem 0.18rem;
@@ -189,17 +200,17 @@ import MipImInputExtraLink from './mip-im-input-extra-link.vue'
 import mipImInputExtraBase from './mip-im-input-extra-base.vue'
 export default {
   components: {
-    'mip-input-upload': MipImInputExtraUpload,
-    'mip-input-link': MipImInputExtraLink,
-    'mip-input-base': mipImInputExtraBase
+    'mip-im-input-extra-upload': MipImInputExtraUpload,
+    'mip-im-input-extra-link': MipImInputExtraLink,
+    'mip-im-input-extra-base': mipImInputExtraBase
   },
 
   props: {
     placeholder: {
       type: String,
-      default: 'ddd'
+      default: '请输入'
     },
-    disable: {
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -216,32 +227,28 @@ export default {
     extraList: {
       type: Array,
       default () {
-        return [
-          { type: 'mip-input-upload', content: {} },
-          { type: 'mip-input-link', content: {} },
-          { type: 'mip-input-base', content: {} }
-        ]
+        return []
       }
     }
   },
   data () {
     return {
       // 输入框下方非文字输入
-      extraState: true,
+      extraState: false,
       // 输入框状态
       inputState: 'blur',
       bodyStyle: '',
       inputContent: '',
-      isMask: true
+      isMask: false
     }
   },
   computed: {
     inputColor () {
-      return this.disable ? '#ddd' : '#555'
+      return this.disabled ? '#ddd' : '#555'
     }
   },
   watch: {
-    disable (value, old) {
+    disabled (value, old) {
       if (value === true) {
         this.extraState = false
         this.inputContent = ''
@@ -263,7 +270,7 @@ export default {
   },
   methods: {
     extraClick () {
-      if (!this.disable) {
+      if (!this.disabled && this.extraList.length > 0) {
         this.extraState = !this.extraState
         this.isMask = this.extraState
       }
@@ -284,7 +291,10 @@ export default {
       this.inputContent = ''
     },
     send () {
-      this.$emit('send', { type: 'text', text: this.inputContent })
+      if (this.inputContent) {
+        this.$emit('send', { type: 'text', text: this.inputContent })
+        this.inputContent = ''
+      }
     },
     onblur () {
       this.inputState = 'blur'

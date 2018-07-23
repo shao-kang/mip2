@@ -7,7 +7,8 @@
     :avatar-link="avatarLink"
     :text="text"
     :link-color="linkColor"
-    :bd-color="bdColor">
+    :bd-color="bdColor"
+    type="inflexible">
     <mip-img
       :slot="position"
       :src="img"

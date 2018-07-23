@@ -5,10 +5,9 @@
     class="im-item-container">
     <a
       :href="avatarLink && avatarLink.url"
-      :type="avatarLink && avatarLink.type"
-      :title="avatarLink && avatarLink.title"
-
-      class="im-item-link">
+      :data-type="avatarLink && avatarLink.type"
+      :data-title="avatarLink && avatarLink.title"
+      class="im-item-avator-link">
       <mip-img
         :src="avatar"
         class="im-item-avator" />
@@ -19,7 +18,7 @@
       class="im-item-content-wrapper"
     >
       <div
-        :class="type ==='flex' ? 'im-item-content-flex' : 'im-item-content'"
+        :class="type ==='flexible' ? 'im-item-content-flex' : 'im-item-content'"
         :style="{'background-color': bgColor, 'border': '1px solid ' + bdColor}"
       >
         <mip-im-triangle
@@ -32,7 +31,7 @@
 
       </div>
       <div
-        v-if="type ==='flex'"
+        v-if="type ==='flexible'"
         class="im-item-content-space"/>
     </div>
     <div class="im-item-space" />
@@ -43,14 +42,14 @@
 .im-item-container {
   display: flex;
   padding: 0 0.07rem;
-  margin-bottom: .20rem;
+  margin-bottom: .15rem;
 }
-.im-item-link {
+.im-item-avator-link {
   display: block;
   margin-left: .1rem;
   margin-right: .1rem;
-  height: .44rem;
-  width: .44rem;
+  height: .4rem;
+  width: .4rem;
 }
 .im-item-container-left {
   flex-direction: row;
@@ -59,9 +58,9 @@
   flex-direction: row-reverse;
 }
 .im-item-avator {
-  flex: 0 0 .44rem;
-  height: .44rem;
-  width: .44rem;
+  flex: 0 0 .4rem;
+  height: .4rem;
+  width: .4rem;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -89,22 +88,11 @@
 .im-item-content-space {
   flex: 10000 0 0;
 }
-.im-item-triangle {
-    position: absolute;
-    right: -6px;
-    top: 20px;
-    width: 12px;
-    height: 12px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
 .im-item-space {
   flex: 0 0 .44rem;
   padding: 0 .1rem;
 }
-.im-item-space-flex {
-  flex: 10000 0 44px;
-}
+
 </style>
 
 <script>
@@ -117,7 +105,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'default'
+      default: 'inflexible'
     },
     align: {
       type: String,

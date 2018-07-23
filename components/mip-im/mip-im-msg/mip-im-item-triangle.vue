@@ -9,18 +9,18 @@
 <style scoped>
 .mip-im-triangle-left {
   position: absolute;
-  left: -7px;
-  top: 15px;
-  width: 12px;
-  height: 12px;
+  left: -.04rem;
+  top: .15rem;
+  width: .06rem;
+  height: .06rem;
   transform: rotate(-45deg);
 }
 .mip-im-triangle-right {
   position: absolute;
-  right: -7px;
-  top: 15px;
-  width: 12px;
-  height: 12px;
+  right: -.04rem;
+  top: .15rem;
+  width: .06rem;
+  height: .06rem;
   transform: rotate(135deg);
 }
 </style>

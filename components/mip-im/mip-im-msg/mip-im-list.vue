@@ -8,6 +8,7 @@
         :text-color="config.systemTime.textColor"
         :text="formatDate(im.timestamp, 'yyyy年MM月dd日 hh:mm')"/>
       <component
+        ref="imItem"
         :is="im.type"
         :key="im.messageId"
         v-bind="im.content"
@@ -42,10 +43,6 @@ export default {
       default () {
         return []
       }
-    },
-    align: {
-      type: String,
-      default: 'left'
     },
     config: {
       type: Object,
@@ -86,8 +83,16 @@ export default {
     this.$options.components = Object.assign({}, this.$props.customMsgs, this.$options.components)
   },
   methods: {
+    moveToLast () {
+      this.$nextTick(() => {
+        if (this.$refs.imItem && this.$refs.imItem.length > 0) {
+          let last = this.$refs.imItem.length - 1
+          this.$refs.imItem[last].$el.scrollIntoView()
+        }
+      })
+    },
     formatDate (seconds, fmt) {
-      let date = new Date(seconds)
+      let date = new Date(seconds * 1000)
       let o = {
         'M+': date.getMonth() + 1,
         'd+': date.getDate(),
