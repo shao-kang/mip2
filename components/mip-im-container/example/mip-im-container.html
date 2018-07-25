@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html mip>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>MIP page</title>
+    <link rel="canonical" href="对应的原页面地址">
+    <link rel="stylesheet" href="https://c.mipcdn.com/static/v2/mip.css">
+    <style mip-custom>
+    /* 自定义样式 */
+    </style>
+  </head>
+  <body>
+    <div>
+      <mip-im-container
+        question-id="123"
+        socket-url="ws://10.52.184.3:8237?vn=house&token=123&question_id=123&resource_id=123" >
+          <script type="application/json">
+            {
+              imConfig: {
+                left: {
+                  bgColor: '#fff',
+                  bdColor: '#f0f',
+                  textColor: '#f0f',
+                  linkColor: '#0ff'
+                },
+                right: {
+                  bgColor: '#fff',
+                  bdColor: '#f0f',
+                  textColor: '',
+                  linkColor: '#0ff'
+                },
+                middle: {
+                  bgColor: 'transparent',
+                  textColor: '#555'
+                },
+                systemTime: {
+                  bgColor: '#d9d9d9',
+                  textColor: '#fff',
+                  timeInterval: 60
+                }
+              }
+            }
+          </script>
+      </mip-im-container>
+    </div>
+    <script src="https://c.mipcdn.com/static/v2/mip.js"></script>
+    <script src="/mip-im-container/mip-im-container.js"></script>
+  </body>
+</html>

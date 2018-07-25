@@ -5,11 +5,16 @@
     :avatar="avatar"
     :avatar-link="avatarLink"
     :triangle="false"
-    :bd-color="bdColor">
+    :bd-color="bdColor"
+    inflexible>
     <mip-img
+      :height="height"
+      :width="width"
+      :layout="height > 0 && width > 0 ? 'responsive' : 'container'"
+      :src="img"
       class="im-content-img"
       popup
-      src="https://www.mipengine.org/static/img/sample_01.jpg" />
+    />
   </mip-im-item>
 </template>
 
@@ -56,6 +61,14 @@ export default {
     img: {
       type: String,
       default: ''
+    },
+    height: {
+      type: Number,
+      default: 100
+    },
+    width: {
+      type: Number,
+      default: 100
     }
 
   }

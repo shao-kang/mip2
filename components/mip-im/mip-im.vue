@@ -7,9 +7,11 @@
       ref="imList"
       :im-list="imList"
       :config="imConfig"
+      :custom-msgs="customMsgType"
       class="mip-im-list"/>
     <mip-im-input
       :extra-list="inputExtraList"
+      :custom-types="customInputExtraType"
       v-bind="inputConfig"
       @send="sendText"
       @input-extra-event="send"
@@ -67,9 +69,15 @@ export default {
         }
       }
     },
-    customComponents: {
+    customMsgType: {
       type: Object,
       default: function () {
+        return {}
+      }
+    },
+    customInputExtraType: {
+      type: Object,
+      default () {
         return {}
       }
     },
@@ -90,19 +98,14 @@ export default {
       })
     }
   },
-  created: function () {
-    this.$options.components = Object.assign({}, this.$props.customComponents, this.$options.components)
-  },
   mounted () {
     this.$refs.imList.moveToLast()
   },
   methods: {
     sendText (info) {
-      console.log(info)
       this.$emit('sendText', info)
     },
     inputExtraEvent (info) {
-      console.log(info)
       this.$emit('inputExtra', info)
     }
   }

@@ -26,6 +26,7 @@
             :disabled="disabled"
             @focus="onfocus"
             @blur="onblur"
+            @click="onclick"
           />
           <div
             v-if="inputState === 'blur'"
@@ -66,9 +67,9 @@
           <component
             v-for="(item, index) in extraList"
             :key="item.type"
-            :is="item.viewType"
+            :is="item.type"
             :index="index"
-            :bind="item.content"
+            v-bind="item.content"
             class="mip-im-input-extra-item"
             @extra-event="extraEvent"
           />
@@ -195,20 +196,22 @@
 }
 </style>
 <script>
-import MipImInputExtraUpload from './mip-im-input-extra-upload.vue'
-import MipImInputExtraLink from './mip-im-input-extra-link.vue'
-import mipImInputExtraBase from './mip-im-input-extra-base.vue'
+import MipImExtraUpload from './mip-im-extra-upload.vue'
+import MipImExtraLink from './mip-im-extra-link.vue'
+import MipImExtraBase from './mip-im-extra-base.vue'
+import MipImExtraPhone from './mip-im-extra-phone'
 export default {
   components: {
-    'mip-im-input-extra-upload': MipImInputExtraUpload,
-    'mip-im-input-extra-link': MipImInputExtraLink,
-    'mip-im-input-extra-base': mipImInputExtraBase
+    'mip-im-extra-upload': MipImExtraUpload,
+    'mip-im-extra-link': MipImExtraLink,
+    'mip-im-extra-phone': MipImExtraPhone,
+    'mip-im-extra-base': MipImExtraBase
   },
 
   props: {
     placeholder: {
       type: String,
-      default: '请输入'
+      default: '请输入回复内容'
     },
     disabled: {
       type: Boolean,
@@ -265,9 +268,6 @@ export default {
       this.$options.components
     )
   },
-  mounted () {
-    // navigator.getUserMedia()
-  },
   methods: {
     extraClick () {
       if (!this.disabled && this.extraList.length > 0) {
@@ -286,6 +286,11 @@ export default {
       this.inputState = 'focus'
       this.extraState = false
       this.isMask = true
+    },
+    onclick () {
+      if (this.inputState !== 'focus') {
+        this.inputState = 'focus'
+      }
     },
     cancle () {
       this.inputContent = ''

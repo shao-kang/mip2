@@ -1,23 +1,23 @@
 <template>
-  <div class="mip-im-input-extra-upload-wrapper">
-    <mip-im-input-extra-base
+  <div class="mip-im-extra-upload-wrapper">
+    <mip-im-extra-base
       :img="img"
       :text="text"/>
     <input
       ref="fileEle"
       :accept="accept"
       type="file"
-      class="mip-im-input-extra-upload-input"
+      class="mip-im-extra-upload-input"
       @change="handleChange"
     >
   </div>
 </template>
 <style scoped>
-.mip-im-input-extra-upload-wrapper {
+.mip-im-extra-upload-wrapper {
   position: relative;
   overflow: hidden;
 }
-.mip-im-input-extra-upload-img {
+.mip-im-extra-upload-img {
   width: .54rem;
   height: .54rem;
   margin: 0 auto;
@@ -25,13 +25,13 @@
   border: 1px solid #eee;
   background-color: #fff;
 }
-.mip-im-input-extra-upload-text {
+.mip-im-extra-upload-text {
   margin-top: .1rem;
   font-size: .12rem;
   line-height: 100%;
   color: #555;
 }
-.mip-im-input-extra-upload-input {
+.mip-im-extra-upload-input {
   opacity: 0;
   position: absolute;
   top: 0;
@@ -41,10 +41,10 @@
 }
 </style>
 <script>
-import MipImInputExtraBase from './mip-im-input-extra-base'
+import MipImExtraBase from './mip-im-extra-base'
 export default {
   components: {
-    'mip-im-input-extra-base': MipImInputExtraBase
+    'mip-im-extra-base': MipImExtraBase
   },
   props: {
     img: {
@@ -73,7 +73,7 @@ export default {
     },
     limit: {
       type: Number,
-      default: 100
+      default: 50
     }
 
   },

@@ -3,17 +3,17 @@
     :data-type="link.type"
     :href="link.url"
     :data-title="link.title"
-    class="mip-im-input-extra-link">
-    <mip-im-input-extra-base
+    class="mip-im-extra-link">
+    <mip-im-extra-base
       :img="img"
       :text="text" />
   </a>
 </template>
 <style scoped>
-.mip-im-input-extra-link {
+.mip-im-extra-link {
   display: block;
 }
-.mip-im-input-extra-link-img {
+.mip-im-extra-link-img {
   width: .54rem;
   height: .54rem;
   margin: 0 auto;
@@ -21,7 +21,7 @@
   border: 1px solid #eee;
   background-color: #fff;
 }
-.mip-im-input-extra-link-text {
+.mip-im-extra-link-text {
   margin-top: .1rem;
   font-size: .12rem;
   line-height: 100%;
@@ -30,10 +30,10 @@
 
 </style>
 <script>
-import MipImInputExtraBase from './mip-im-input-extra-base'
+import MipImInputExtraBase from './mip-im-extra-base'
 export default {
   components: {
-    'mip-im-input-extra-base': MipImInputExtraBase
+    'mip-im-extra-base': MipImInputExtraBase
   },
   props: {
     link: {

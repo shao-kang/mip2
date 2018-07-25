@@ -4,8 +4,8 @@
       <mip-im-item-system
         v-if="index === 0 || im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval"
         :key="im.messageId"
-        :bg-color="config.systemTime.bgColor"
-        :text-color="config.systemTime.textColor"
+        :bg-color="config&&config.systemTime&&config.systemTime.bgColor"
+        :text-color="config&&config.systemTime&&config.systemTime.textColor"
         :text="formatDate(im.timestamp, 'yyyy年MM月dd日 hh:mm')"/>
       <component
         ref="imItem"
@@ -14,9 +14,9 @@
         v-bind="im.content"
         :align="im.align"
         :avatar="im.avatar"
-        :bg-color="config[im.align].bgColor"
-        :bd-color="config[im.align].bdColor"
-        :link-color="config[im.align].linkColor"
+        :bg-color="config[im.align]&&config[im.align].bgColor"
+        :bd-color="config[im.align]&&config[im.align].bdColor"
+        :link-color="config[im.align]&&config[im.align].linkColor"
         :avatar-link="im.avatarLink"/>
     </template>
   </div>

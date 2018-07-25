@@ -12,6 +12,9 @@
     <mip-img
       :slot="position"
       :src="img"
+      :layout="height > 0 && width > 0 ? 'responsive' : 'container'"
+      :height="height"
+      :width="width"
       class="mip-im-item-text-img"
       popup />
   </mip-im-item-text>
@@ -71,6 +74,14 @@ export default {
     img: {
       type: String,
       default: ''
+    },
+    height: {
+      type: Number,
+      default: 0
+    },
+    width: {
+      type: Number,
+      default: 0
     }
   }
 }

@@ -106,8 +106,8 @@ export default {
 </script>
 <style lang="less" scoped>
   .mip-im-item-audio {
-    width: 44px;
-    height: 44px;
+    width: .38rem;
+    height: .38rem;
   }
   .mip-im-item-audio-icon-right {
     transform: rotate(180deg);
@@ -117,7 +117,7 @@ export default {
     top: 0;
     top: 50%;
     height: 100%;
-    line-height: 44px;
+    line-height: .38rem;
     margin-top: -50%;
   }
   .mip-im-item-audio-total-time-right {

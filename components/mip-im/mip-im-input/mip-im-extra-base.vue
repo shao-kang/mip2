@@ -2,22 +2,24 @@
   <div @click="click">
     <mip-img
       :src="img"
-      class="mip-im-input-extra-base-img"/>
+      class="mip-im-extra-base-img"/>
     <div
       v-if="!!text"
-      class="mip-im-input-extra-base-text">{{ text }}</div>
+      class="mip-im-extra-base-text">{{ text }}</div>
   </div>
 </template>
 <style scoped>
-.mip-im-input-extra-base-img {
+.mip-im-extra-base-img {
   width: .54rem;
   height: .54rem;
   margin: 0 auto;
+  padding: .1rem;
+  box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #eee;
   background-color: #fff;
 }
-.mip-im-input-extra-base-text {
+.mip-im-extra-base-text {
   margin-top: .1rem;
   font-size: .12rem;
   line-height: 100%;
