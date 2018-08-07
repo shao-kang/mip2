@@ -14,7 +14,7 @@
       :custom-types="customInputExtraType"
       v-bind="inputConfig"
       @send="sendText"
-      @input-extra-event="send"
+      @input-extra-event="inputExtraEvent"
     />
   </div>
 

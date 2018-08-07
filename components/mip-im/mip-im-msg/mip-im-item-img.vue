@@ -8,8 +8,8 @@
     :bd-color="bdColor"
     inflexible>
     <mip-img
-      :height="height"
-      :width="width"
+      :height="height > 0 ? height : false"
+      :width="width > 0 ? width : false"
       :layout="height > 0 && width > 0 ? 'responsive' : 'container'"
       :src="img"
       class="im-content-img"

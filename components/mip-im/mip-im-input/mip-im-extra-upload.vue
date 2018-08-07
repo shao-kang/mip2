@@ -65,7 +65,7 @@ export default {
     },
     filename: {
       type: String,
-      default: 'img'
+      default: 'picFile'
     },
     accept: {
       type: String,

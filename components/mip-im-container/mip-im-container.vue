@@ -4,7 +4,7 @@
     :im-config="imConfig"
     :input-config="inputConfig"
     @sendText="sendText"
-    @inputExtra="sendText"/>
+    @inputExtra="inputExtra"/>
 </template>
 
 <script>
@@ -112,6 +112,7 @@ export default {
       })
       socket.addEventListener('message', (info) => {
         let data = JSON.parse(info.data)
+        console.log(data)
         let event = new CustomEvent(data.method, {detail: data})
         socket.dispatchEvent(event)
       })
@@ -122,6 +123,9 @@ export default {
       socket.addEventListener('onInitView', (e) => {
         let data = e.detail.data
         this.role = data.role
+        data.headTip && data.headTip.map((item, index) => {
+          this.imList.push({type: 'mip-im-item-system', content: {text: item}, timestamp: 0})
+        })
 
         data.msgList && data.msgList.map((item) => {
           this.imList.push(item)
@@ -222,7 +226,7 @@ export default {
         method: 'sendMsg',
         uniqueId: uniqueId,
         type: 'mip-im-item-img',
-        content: {picID: info.img, orientation: 0}
+        content: info
       }
       this.catchMsgs[uniqueId] = {
         // avatar: this.role.user.avatar,
@@ -248,6 +252,13 @@ export default {
           this.$emit('err', {info: '消息发送失败', type: 'sendFalied'})
         }
       }, second * 1000)
+    },
+    inputExtra (info) {
+      if (info.event.name === 'uploadSuccess' && info.event.data.status === 0) {
+        let imgInfo = info.event.data.data
+        let a = {orientation: imgInfo.orientation, 'picID': imgInfo['picID'], height: imgInfo.height, width: imgInfo.width}
+        this.sendImg(a)
+      }
     }
   }
 }

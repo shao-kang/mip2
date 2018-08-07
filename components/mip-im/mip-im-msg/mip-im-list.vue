@@ -2,7 +2,7 @@
   <div>
     <template v-for="(im, index) in imList">
       <mip-im-item-system
-        v-if="index === 0 || im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval"
+        v-if="im.timestamp > 0 && ( im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval)"
         :key="im.messageId"
         :bg-color="config&&config.systemTime&&config.systemTime.bgColor"
         :text-color="config&&config.systemTime&&config.systemTime.textColor"
@@ -87,7 +87,7 @@ export default {
       this.$nextTick(() => {
         if (this.$refs.imItem && this.$refs.imItem.length > 0) {
           let last = this.$refs.imItem.length - 1
-          this.$refs.imItem[last].$el.scrollIntoView()
+          this.$refs.imItem[last].$el && this.$refs.imItem[last].$el.scrollIntoView()
         }
       })
     },
