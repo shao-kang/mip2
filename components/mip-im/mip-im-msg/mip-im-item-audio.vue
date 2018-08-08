@@ -74,10 +74,10 @@ export default {
   },
   computed: {
     sourceList: function () {
-      if (typeof (this.audioSource) === 'object') {
+      if (this.audioSource instanceof Array) {
         return this.audioSource
       }
-      return [{src: this.audioSource}]
+      return [this.audioSource]
     }
   },
   watch: {

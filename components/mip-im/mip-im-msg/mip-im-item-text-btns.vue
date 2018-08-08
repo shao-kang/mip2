@@ -10,6 +10,15 @@
     :bd-color="bdColor"
     type="inflexible">
     <div
+      v-if="title"
+      slot="top"
+      :style="{color: titleColor, 'border-bottom': 'solid 1px ' + bdColor}"
+      class="mip-im-item-title"
+    >
+      {{ title }}
+    </div>
+    <div
+      v-if="btns && btns.length > 0"
       slot="bottom"
       :style="{'border-top': '1px solid ' + bdColor}"
       class="mip-im-item-text-btns"
@@ -29,6 +38,9 @@
 </template>
 
 <style scoped>
+.mip-im-item-title {
+  padding: .1rem .15rem
+}
 .mip-im-item-text-btns {
   display: flex;
 }
@@ -63,6 +75,14 @@ export default {
       default: '#f0f'
     },
     linkColor: {
+      type: String,
+      default: ''
+    },
+    titleColor: {
+      type: String,
+      default: '#999'
+    },
+    title: {
       type: String,
       default: ''
     },

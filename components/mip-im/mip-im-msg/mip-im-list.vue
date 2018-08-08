@@ -2,7 +2,7 @@
   <div>
     <template v-for="(im, index) in imList">
       <mip-im-item-system
-        v-if="im.timestamp > 0 && ( im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval)"
+        v-if="im.timestamp > 0 && ( index === 0 || im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval)"
         :key="im.messageId"
         :bg-color="config&&config.systemTime&&config.systemTime.bgColor"
         :text-color="config&&config.systemTime&&config.systemTime.textColor"
@@ -28,9 +28,11 @@ import ImItemTextImg from './mip-im-item-text-img.vue'
 import ImItemTextBtns from './mip-im-item-text-btns.vue'
 import ImItemImg from './mip-im-item-img.vue'
 import ImItemAudio from './mip-im-item-audio.vue'
+import ImItemListBtns from './mip-im-item-list-btns'
 export default {
   components: {
     'mip-im-item-img': ImItemImg,
+    'mip-im-item-list-btns': ImItemListBtns,
     'mip-im-item-text': ImItemText,
     'mip-im-item-text-img': ImItemTextImg,
     'mip-im-item-audio': ImItemAudio,

@@ -8,9 +8,9 @@
     :bd-color="bdColor"
     inflexible>
     <mip-img
-      :height="height > 0 ? height : false"
-      :width="width > 0 ? width : false"
-      :layout="height > 0 && width > 0 ? 'responsive' : 'container'"
+      :height="height > 0 && height / width > 0.2 ? height : false"
+      :width="width > 0 && height / width > 0.2 ? width : false"
+      :layout="height > 0 && width > 0 && height / width > 0.2 ? 'responsive' : 'container'"
       :src="img"
       class="im-content-img"
       popup
@@ -22,7 +22,6 @@
 .im-content-img {
   display: block;
   width: auto;
-  margin: -1px;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
