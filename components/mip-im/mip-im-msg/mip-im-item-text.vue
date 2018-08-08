@@ -45,15 +45,15 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#f0f'
+      default: '#fff'
     },
     bdColor: {
       type: String,
-      default: '#fff'
+      default: '#ebebeb'
     },
     textColor: {
       type: String,
-      default: '#000'
+      default: '#333'
     },
     avatar: {
       type: String,
@@ -67,7 +67,7 @@ export default {
     },
     linkColor: {
       type: String,
-      default: '#0f0'
+      default: '#06356b'
     },
     type: {
       type: String,

@@ -12,33 +12,35 @@
   </head>
   <body>
     <div>
-      <mip-im-container
-        question-id="123"
-        socket-url="ws://10.52.184.3:8237?vn=house&token=123&question_id=123&resource_id=123" >
+      <mip-im-container>
           <script type="application/json">
             {
+              socketUrl:"ws://10.52.184.3:8237?vn=house&token=123&question_id=123&resource_id=123",
               imConfig: {
                 left: {
+                  titleColor: '#999',
                   bgColor: '#fff',
-                  bdColor: '#f0f',
-                  textColor: '#f0f',
-                  linkColor: '#0ff'
+                  bdColor: '#ebebeb',
+                  textColor: '#333',
+                  linkColor: '#06356b'
                 },
                 right: {
-                  bgColor: '#fff',
-                  bdColor: '#f0f',
-                  textColor: '',
+                  titleColor: '#999',
+                  bgColor: '#1E5798',
+                  bdColor: '#1E5798',
+                  textColor: '#fff',
                   linkColor: '#0ff'
                 },
                 middle: {
                   bgColor: 'transparent',
-                  textColor: '#555'
+                  textColor: '#999'
                 },
                 systemTime: {
                   bgColor: '#d9d9d9',
                   textColor: '#fff',
-                  timeInterval: 60
-                }
+                  timeInterval: 300
+                },
+                mainBgColor: '#f1f1f1'
               }
             }
           </script>

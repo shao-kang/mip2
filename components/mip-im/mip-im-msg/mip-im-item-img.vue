@@ -41,11 +41,11 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#f0f'
+      default: '#fff'
     },
     bdColor: {
       type: String,
-      default: '#fff'
+      default: '#ebebeb'
     },
     avatar: {
       type: String,

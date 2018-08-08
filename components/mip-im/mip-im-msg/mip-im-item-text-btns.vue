@@ -3,6 +3,7 @@
     :align="align"
     :bg-color="bgColor"
     :link-color="linkColor"
+    :text-color="textColor"
     :avatar="avatar"
     :text="text"
     :avatar-link="avatarLink"
@@ -72,12 +73,17 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#f0f'
+      default: '#fff'
     },
     linkColor: {
       type: String,
-      default: ''
+      default: '#06356b'
     },
+    textColor: {
+      type: String,
+      default: '#333'
+    },
+
     titleColor: {
       type: String,
       default: '#999'
@@ -102,7 +108,7 @@ export default {
     },
     bdColor: {
       type: String,
-      default: '#000'
+      default: '#ebebeb'
     },
     // btns 中一个对象的格式为{url：'aaa', title: 'nihao', type: 'mip', text: 'btn1'}
     //  url 为将要跳转的链接 title 为跳转页面的title type为url类型取值为mip 或空, text: 为按钮中文字

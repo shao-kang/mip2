@@ -1,11 +1,41 @@
 <template>
-  <mip-im
-    :im-list="imList"
-    :im-config="imConfig"
-    :input-config="inputConfig"
-    @sendText="sendText"
-    @inputExtra="inputExtra"/>
+  <div>
+    <mip-im
+      :im-list="imList"
+      :im-config="imConfig"
+      :input-config="inputConfig"
+      @sendText="sendText"
+      @inputExtra="inputExtra"/>
+    <mip-fixed
+      v-if="toast.state"
+      type="top"
+      class="mip-im-toast">
+      <div class="mip-im-toast-content">{{ toast.content }}</div>
+    </mip-fixed>
+  </div>
+
 </template>
+<style scoped>
+.mip-im-toast {
+  top: 50%;
+  text-align: center;
+}
+.mip-im-toast-content {
+  background: rgba(0, 0, 0, 0.8);
+  display: inline-block;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 .17rem;
+  line-height: .44rem;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 80%;
+
+}
+</style>
 
 <script>
 import MipIm from './../mip-im/mip-im'
@@ -13,10 +43,6 @@ export default {
   components: {'mip-im': MipIm},
   props: {
     socketUrl: {
-      type: String,
-      default: ''
-    },
-    questionId: {
       type: String,
       default: ''
     },
@@ -37,26 +63,29 @@ export default {
       default () {
         return {
           left: {
-            bgColor: '#f00',
-            bdColor: '#f0f',
-            textColor: '#f0f',
-            linkColor: '#0ff'
+            titleColor: '#999',
+            bgColor: '#fff',
+            bdColor: '#ebebeb',
+            textColor: '#333',
+            linkColor: '#06356b'
           },
           right: {
-            bgColor: '#fff',
-            bdColor: '#f0f',
-            textColor: '',
+            titleColor: '#999',
+            bgColor: '#1E5798',
+            bdColor: '#1E5798',
+            textColor: '#fff',
             linkColor: '#0ff'
           },
           middle: {
             bgColor: 'transparent',
-            textColor: '#555'
+            textColor: '#999'
           },
           systemTime: {
             bgColor: '#d9d9d9',
             textColor: '#fff',
-            timeInterval: 60
-          }
+            timeInterval: 300
+          },
+          mainBgColor: '#f1f1f1'
         }
       }
     }
@@ -70,6 +99,11 @@ export default {
       role: {},
       isInit: false,
       socektState: true,
+      toast: {
+        state: false,
+        content: ''
+      },
+      timer: null,
       catchMsgs: {}
     }
   },
@@ -124,7 +158,7 @@ export default {
         let data = e.detail.data
         this.role = data.role
         data.headTip && data.headTip.map((item, index) => {
-          this.imList.push({type: 'mip-im-item-system', content: {text: item}, timestamp: 0})
+          this.imList.push({type: 'mip-im-item-system', align: 'middle', content: {text: item}, timestamp: 0})
         })
 
         data.msgList && data.msgList.map((item) => {
@@ -133,6 +167,7 @@ export default {
         if (data.inputConfig !== undefined) {
           this.inputConfig = data.inputConfig
         }
+        socket.close()
       })
       socket.addEventListener('onSendMsg', (e) => {
         if (this.catchMsgs[e.detail.uniqueId] !== undefined) {
@@ -214,9 +249,9 @@ export default {
       }
       if (this.socket.readyState === 1) {
         this.socket.send(JSON.stringify(msg))
-        this.msgCheckError(2, uniqueId)
+        this.msgCheckError(3, uniqueId)
       } else {
-        this.$emit('error', {type: 'info'})
+        this.error({type: 'socketError'})
       }
     },
     sendImg (info) {
@@ -237,9 +272,9 @@ export default {
       }
       if (this.socket.readyState === 1) {
         this.socket.send(JSON.stringify(msg))
-        this.msgCheckError(2, uniqueId)
+        this.msgCheckError(3, uniqueId)
       } else {
-        this.$emit('error', {type: 'info'})
+        this.error({type: 'socketError'})
       }
     },
     getUniqueId (questionId) {
@@ -249,15 +284,33 @@ export default {
     msgCheckError (second, uniqueId) {
       setTimeout(() => {
         if (this.catchMsgs[uniqueId]) {
-          this.$emit('err', {info: '消息发送失败', type: 'sendFalied'})
+          this.error({info: '消息发送失败', type: 'sendFalied'})
         }
       }, second * 1000)
     },
+    error (value) {
+      this.$emit('err', value)
+      this.openToast(value.info)
+    },
+    openToast (content) {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.toast.state = true
+      this.toast.content = content || '消息发送失败'
+      this.timer = setTimeout(() => {
+        this.toast.state = false
+      }, 2000)
+    },
     inputExtra (info) {
+      this.$emit('inputExtra', info)
       if (info.event.name === 'uploadSuccess' && info.event.data.status === 0) {
         let imgInfo = info.event.data.data
         let a = {orientation: imgInfo.orientation, 'picID': imgInfo['picID'], height: imgInfo.height, width: imgInfo.width}
         this.sendImg(a)
+      }
+      if (info.event.name === 'uploadFailed') {
+        this.openToast(' 发送图片失败')
       }
     }
   }

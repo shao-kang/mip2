@@ -1,7 +1,7 @@
 <template>
   <div
-    :style="{'background': background}"
-    class="container"
+    :style="{'background-color': imConfig.mainBgColor || '#f1f1f1'}"
+    class="mip-im"
   >
     <mip-im-list
       ref="imList"
@@ -21,6 +21,9 @@
 </template>
 
 <style scoped>
+.mip-im {
+  min-height: 100vh;
+}
 .mip-im-list {
   padding-bottom: 1rem;
 }
@@ -46,15 +49,17 @@ export default {
       default () {
         return {
           left: {
-            bgColor: '#f00',
-            bdColor: '#f0f',
-            textColor: '#f0f',
-            linkColor: '#0ff'
+            titleColor: '#999',
+            bgColor: '#fff',
+            bdColor: '#ebebeb',
+            textColor: '#333',
+            linkColor: '#06356b'
           },
           right: {
-            bgColor: '#fff',
-            bdColor: '#f0f',
-            textColor: '',
+            titleColor: '#999',
+            bgColor: '#1E5798',
+            bdColor: '#1E5798',
+            textColor: '#fff',
             linkColor: '#0ff'
           },
           middle: {
@@ -64,8 +69,9 @@ export default {
           systemTime: {
             bgColor: '#d9d9d9',
             textColor: '#fff',
-            timeInterval: 60
-          }
+            timeInterval: 300
+          },
+          mainBgColor: '#f1f1f1'
         }
       }
     },

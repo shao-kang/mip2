@@ -2,7 +2,7 @@
   <div>
     <template v-for="(im, index) in imList">
       <mip-im-item-system
-        v-if="im.timestamp > 0 && ( index === 0 || im.timestamp -imList[index-1].timestamp > config.systemTime.timeInterval)"
+        v-if="im.timestamp > 0 && ( index === 0 || im.timestamp -imList[index-1].timestamp > timeInterval)"
         :key="im.messageId"
         :bg-color="config&&config.systemTime&&config.systemTime.bgColor"
         :text-color="config&&config.systemTime&&config.systemTime.textColor"
@@ -14,9 +14,11 @@
         v-bind="im.content"
         :align="im.align"
         :avatar="im.avatar"
+        :text-color="config[im.align]&&config[im.align].textColor"
         :bg-color="config[im.align]&&config[im.align].bgColor"
         :bd-color="config[im.align]&&config[im.align].bdColor"
         :link-color="config[im.align]&&config[im.align].linkColor"
+        :title-color="config[im.align]&&config[im.align].titleColor"
         :avatar-link="im.avatarLink"/>
     </template>
   </div>
@@ -53,13 +55,13 @@ export default {
           left: {
             bgColor: '#ff0',
             bdColor: '#f0f',
-            textColor: '',
+            textColor: '#333',
             linkColor: '#0ff'
           },
           right: {
             bgColor: '#fff',
             bdColor: '#f0f',
-            textColor: '',
+            textColor: '#fff',
             linkColor: '#00f'
           },
           middle: {
@@ -79,6 +81,14 @@ export default {
       default () {
         return {}
       }
+    }
+  },
+  computed: {
+    timeInterval () {
+      if (this.config && this.config.systemTime && this.config.systemTime.timeInterval) {
+        return this.config.systemTime.timeInterval
+      }
+      return 300
     }
   },
   created: function () {

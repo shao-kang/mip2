@@ -1,9 +1,14 @@
 <template>
-  <div class="mip-im-item-system">
-    <span
-      :style="{'background-color':bgColor,'color':textColor}"
-      class="mip-im-item-system-text"
-    >{{ text }}</span>
+  <div>
+    <div
+      v-for="item in textList"
+      :key="item"
+      class="mip-im-item-system" >
+      <span
+        :style="{'background-color':bgColor,'color':textColor}"
+        class="mip-im-item-system-text"
+      >{{ item }}</span>
+    </div>
   </div>
 </template>
 <script>
@@ -20,6 +25,14 @@ export default {
     text: {
       type: String,
       default: ''
+    }
+  },
+  computed: {
+    textList () {
+      if (this.text instanceof Array) {
+        return this.text
+      }
+      return [this.text]
     }
   }
 }

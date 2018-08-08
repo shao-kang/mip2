@@ -113,7 +113,7 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#f0f'
+      default: '#fff'
     },
     triangle: {
       type: Boolean,
@@ -121,7 +121,7 @@ export default {
     },
     bdColor: {
       type: String,
-      default: '#fff'
+      default: '#ebebeb'
     },
     avatar: {
       type: String,

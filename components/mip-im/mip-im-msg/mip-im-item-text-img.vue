@@ -6,6 +6,7 @@
     :avatar="avatar"
     :avatar-link="avatarLink"
     :text="text"
+    :text-color="textColor"
     :link-color="linkColor"
     :bd-color="bdColor"
     type="inflexible">
@@ -42,11 +43,15 @@ export default {
     },
     bgColor: {
       type: String,
-      default: '#f0f'
+      default: '#fff'
+    },
+    textColor: {
+      type: String,
+      default: '#333'
     },
     bdColor: {
       type: String,
-      default: '#000'
+      default: '#ebebeb'
     },
     avatar: {
       type: String,
