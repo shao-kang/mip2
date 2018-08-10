@@ -128,7 +128,7 @@ export default {
           this.$emit('extra-event', {index: this.index, event: {name: 'uploadSuccess', data: data}})
         })
         .catch((err) => {
-          this.$emit('extra-event', {index: this.index, event: {name: 'uploadFailed', info: err}})
+          this.$emit('extra-event', {index: this.index, event: {name: 'uploadFailed', data: err}})
         })
     },
     preivew (file) {

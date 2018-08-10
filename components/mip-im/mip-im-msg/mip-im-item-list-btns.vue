@@ -20,7 +20,7 @@
         :href="btn.url"
         :data-type="btn.type"
         :data-title="btn.title"
-        :style="{color: linkColor, 'border-bottom': index < btns.length - 1 ? '1px solid ' + bdColor : 'none'}"
+        :style="{color: linkColor, 'border-bottom': index < links.length - 1 ? '1px solid ' + bdColor : 'none'}"
         class="mip-im-item-link">
         {{ btn.text }}
       </a>

@@ -94,9 +94,6 @@ export default {
       }
     }
   },
-  data () {
-    return {}
-  },
   watch: {
     imList (value, old) {
       this.$nextTick(() => {

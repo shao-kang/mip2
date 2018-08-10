@@ -22,7 +22,7 @@ export default {
     },
     text: {
       type: String,
-      default: '跳转页面'
+      default: '联系电话'
     }
   }
 }

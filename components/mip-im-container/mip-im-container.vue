@@ -6,12 +6,11 @@
       :input-config="inputConfig"
       @sendText="sendText"
       @inputExtra="inputExtra"/>
-    <mip-fixed
-      v-if="toast.state"
-      type="top"
-      class="mip-im-toast">
-      <div class="mip-im-toast-content">{{ toast.content }}</div>
-    </mip-fixed>
+    <mip-toast
+      ref="toast"
+      :info-text="toast.content"
+      station="center"
+    />
   </div>
 
 </template>
@@ -39,8 +38,12 @@
 
 <script>
 import MipIm from './../mip-im/mip-im'
+import MipToast from './../mip-toast/mip-toast'
 export default {
-  components: {'mip-im': MipIm},
+  components: {
+    'mip-im': MipIm,
+    'mip-toast': MipToast
+  },
   props: {
     socketUrl: {
       type: String,
@@ -103,7 +106,6 @@ export default {
         state: false,
         content: ''
       },
-      timer: null,
       catchMsgs: {}
     }
   },
@@ -120,7 +122,7 @@ export default {
       this.socket = socket
       // // // Connection opened
       socket.addEventListener('open', (event) => {
-        var json = {method: 'initView'}
+        let json = {method: 'initView'}
         socket.send(JSON.stringify(json))
         this.isInit = true
       })
@@ -160,14 +162,15 @@ export default {
         data.headTip && data.headTip.map((item, index) => {
           this.imList.push({type: 'mip-im-item-system', align: 'middle', content: {text: item}, timestamp: 0})
         })
-
         data.msgList && data.msgList.map((item) => {
           this.imList.push(item)
         })
         if (data.inputConfig !== undefined) {
           this.inputConfig = data.inputConfig
         }
-        socket.close()
+        if (data.countdown) {
+          this.$emit('countdown', data.countdown)
+        }
       })
       socket.addEventListener('onSendMsg', (e) => {
         if (this.catchMsgs[e.detail.uniqueId] !== undefined) {
@@ -293,14 +296,9 @@ export default {
       this.openToast(value.info)
     },
     openToast (content) {
-      if (this.timer) {
-        clearTimeout(this.timer)
-      }
       this.toast.state = true
       this.toast.content = content || '消息发送失败'
-      this.timer = setTimeout(() => {
-        this.toast.state = false
-      }, 2000)
+      this.$refs.toast.$emit('show')
     },
     inputExtra (info) {
       this.$emit('inputExtra', info)

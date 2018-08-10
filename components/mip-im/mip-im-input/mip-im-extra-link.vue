@@ -42,7 +42,7 @@ export default {
         return {
           type: '',
           url: null,
-          tilte: ''
+          title: ''
         }
       }
     },
