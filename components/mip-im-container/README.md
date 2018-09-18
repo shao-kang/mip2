@@ -101,7 +101,15 @@ im 组件为即时通信组件，支持图片，文字， 语音（只支持服�
 ### inputExtra 事件
 说明： input 输入框扩展部分触发事件
 触发传值为{index: '索引'， event{name：'click', data: {}}}  具体类型及值见mip-im-extra 部分文档
-
+### statusEvent 事件
+说明： im 状态发生变化触发事件， 触发事件取值为 {name: eventName} eventName 取值见下方  
+问题创建 : Q_STATUS_NEW  
+等待支付: Q_STATUS_WAIT_PAY  
+有新的专家回复: Q_STATUS_NEW_ANSWER  
+问题关闭: Q_STATUS_CLOSE  
+问题关闭且评论完成: Q_STATUS_CLOSE_COMMENTED  
+退款中: Q_STATUS_CLOSE_REFUNDING  
+退款完成: Q_STATUS_CLOSE_REFUND_SUCC  
 
 ## im 组件结构
 im 组件分为两部分：

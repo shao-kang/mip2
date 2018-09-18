@@ -218,6 +218,11 @@ export default {
           this.inputConfig = Object.assign({}, this.inputConfig, data.inputConfig)
         }
       })
+      socket.addEventListener('onStatusEvent', (e) => {
+        if (e && e.detail && e.detail.data && e.detail.data.event) {
+          this.$emit('statusEvent', {name: e.detail.data.event})
+        }
+      })
     },
     reconnect () {
       if (this.socket.readyState < 2) {

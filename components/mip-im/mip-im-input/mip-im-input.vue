@@ -32,6 +32,7 @@
             v-if="inputState === 'blur'"
             v-show="inputContent === ''"
             class="mip-im-input-extra-button"
+            data-stats-baidu-obj="%7B%22type%22%3A%22click%22%2C%22data%22%3A%5B%22_trackEvent%22%2C%22im-input-extra%22%2C%22toggle%22%5D%7D"
             @click="extraClick">
 
             <svg
@@ -57,6 +58,7 @@
             v-if="inputState === 'blur'"
             v-show="inputContent !== ''"
             class="mip-im-input-extra-button mip-im-input-extra-button-span"
+            data-stats-baidu-obj="%7B%22type%22%3A%22click%22%2C%22data%22%3A%5B%22_trackEvent%22%2C%22im-input-extra%22%2C%22send%22%5D%7D"
             @click="send">
             发送
           </div>
@@ -70,6 +72,7 @@
             :is="item.type"
             :index="index"
             v-bind="item.content"
+            data-stats-baidu-obj="%7B%22type%22%3A%22click%22%2C%22data%22%3A%5B%22_trackEvent%22%2C%22im-input-extra%22%2C%22item-click%22%5D%7D"
             class="mip-im-input-extra-item"
             @extra-event="extraEvent"
           />

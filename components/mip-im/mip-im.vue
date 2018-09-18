@@ -10,7 +10,6 @@
       :custom-msgs="customMsgType"
       class="mip-im-list"/>
     <mip-im-input
-      :extra-list="inputExtraList"
       :custom-types="customInputExtraType"
       v-bind="inputConfig"
       @send="sendText"
