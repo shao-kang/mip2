@@ -220,7 +220,8 @@ export default {
       })
       socket.addEventListener('onStatusEvent', (e) => {
         if (e && e.detail && e.detail.data && e.detail.data.event) {
-          this.$emit('statusEvent', {name: e.detail.data.event})
+          let data = e.detail.data
+          this.$emit('statusEvent', data)
         }
       })
     },
